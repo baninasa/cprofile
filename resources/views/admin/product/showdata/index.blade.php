@@ -18,11 +18,11 @@
     
     <!-- Custom styles for this template -->
     <link href="/css/dashboard.css" rel="stylesheet">
-    
+   
   </head>
   <body>
-    
-@include('admin.layout.header')
+
+  @include('admin.layout.header')
     
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
@@ -58,56 +58,54 @@
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Form Registrasi</h1>
+        <h1 class="h2">Show Data</h1>
+        <form action="/admin/product">
+        <button type="submit" class="btn btn-primary"><span data-feather="arrow-left"></span>Back</button>
+        </form>
 </div>  
 </main>
 
-
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-@if(session()->has('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-{{ session('success')  }}
-<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
+<div class="table-responsive">
 <div class="col-lg-8">
-
- <form action="/admin/registrasi" method="post">
- @csrf
- <div class="mb-3">
-    <label for="name" class="form-label">Name</label>
-    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Name" required value="{{ old('name') }}">
-    @error('name')
-      <div class="invalid-feedback">
-      {{ $message  }}
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Category</th>
+              <th scope="col">Title</th>
+              <th scope="col">Image</th>
+               <th scope="col">Description</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+          @foreach ($produks as $Produk)
+            <tr>
+              <td>{{ $loop->iteration }}</td>
+              <td>{{ $Produk->category }}</td>
+              <td>{{ $Produk->title }}</td>
+              <td>{{ $Produk->image }}</td>
+              <td>{{ $Produk->description }}</td> 
+              <td></td>
+              <td>
+                <a href="/welcome{{ $Produk->id }}" class="badge bg-success">
+                <span data-feather="eye"></span>
+              </td>
+              <td>
+                <a href="/admin/product/showdata{{ $Produk->id }}/edit" class="badge bg-warning">
+                <span data-feather="edit"></span>
+              </td>
+              <td>
+                <a href="/admin/product/showdata{{ $Produk->id }}" class="badge bg-danger" onclick="return confirm('are you sure?')">
+                <span data-feather="x-circle"></span>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+        </div>
       </div>
-    @enderror
-  </div>
-  <div class="mb-3">
-    <label for="email" class="form-label">Email address</label>
-    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="email" required value="{{ old('email') }}">
-    @error('email')
-      <div class="invalid-feedback">
-      {{ $message  }}
-      </div>
-    @enderror
-  </div>
-  <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="password">
-     @error('password')
-      <div class="invalid-feedback">
-      {{ $message  }}
-      </div>
-    @enderror
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<br>
-<form action="/admin/registrasi/showdata">
-  <button type="submit" class="btn btn-primary">Show Data</button>
-</form>
-</div>
 </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

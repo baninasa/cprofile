@@ -10,7 +10,7 @@ class RegisterController extends Controller
    public function index()
    {
        return view('admin.registrasi.index',[
-           'title' => 'Register'
+           'title' => 'Registrasi'
        ]);
    }
    public function store(Request $request)
@@ -25,9 +25,9 @@ class RegisterController extends Controller
 
        User::create($validatedData);
 
-       $request->session()->flash('success', 'Registration successfull!! Please login');
+       $request->session()->flash('success', 'Registration successfull!!');
 
-       return redirect('/admin');
+       return redirect('/admin/registrasi');
    }
 
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class DashboardPostController extends Controller
+class UserPostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class DashboardPostController extends Controller
      */
     public function index()
     {
-        return view('admin.poster.index');
+        return view('admin.registrasi.showdata.index', [
+            'users' => User::all()
+        ]);
     }
 
     /**
@@ -41,10 +43,10 @@ class DashboardPostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(User $user)
     {
         //
     }
@@ -52,10 +54,10 @@ class DashboardPostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(User $user)
     {
         //
     }
@@ -64,10 +66,10 @@ class DashboardPostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -75,11 +77,13 @@ class DashboardPostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
-    {
-        //
+    public function destroy($id)
+    { 
+        $DB::delete('delete from User where id = ?', [$id]);   
+        return redirect('admin.registrasi.showdata.index')->with('Success','Data deleted!');
     }
+ 
 }

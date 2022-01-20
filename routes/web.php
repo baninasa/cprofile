@@ -5,7 +5,10 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\UserPostController;
+use App\Http\Controllers\UserDeleteController;
+use App\Http\Controllers\UserProductController;
+use App\Http\Controllers\PshowdataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +30,8 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/admin/registrasi', [RegisterController::class, 'index']);
-Route::post('/admin/registrasi', [RegisterController::class, 'store']);
+Route::get('/admin/registrasi', [RegisterController::class, 'index'])->middleware('auth');
+Route::post('/admin/registrasi', [RegisterController::class, 'store'])->middleware('auth');
 
 Route::get('/dashboard', function() {
     return view('dashboard.index');
@@ -40,4 +43,13 @@ Route::get('/admin', function() {
     return view('admin.index');
 })->middleware('auth');
 
-Route::resource('/admin/poster', DashboardPostController::class)->middleware('auth');
+Route::resource('/admin/registrasi/showdata', UserPostController::class)->middleware('auth');
+Route::get('/admin/registrasi/showdata{id}', 'App\Http\Controllers\UserDeleteController@destroy');
+
+Route::get('/admin/product', [UserProductController::class, 'index']);
+Route::post('/admin/product', [UserProductController::class, 'store']);
+
+Route::resource('/admin/product/showdata', PshowdataController::class);
+Route::get('/admin/product/showdata{id}', 'App\Http\Controllers\PshowdataController@destroy');
+Route::get('/admin/product/showdata{id}/edit', 'App\Http\Controllers\PshowdataController@edit');
+Route::post('/admin/product/showdata', [PshowdataController::class, 'update']);

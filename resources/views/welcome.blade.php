@@ -177,9 +177,10 @@
         <div class="relative w-full px-5 py-5 mx-auto sm:py-10 md:py-10 md:px-5 max-w-5xl">
 
             <div class="grid grid-cols-12 col-span-12 gap-7">
+                
                 <div class="flex flex-col items-start col-span-12 overflow-hidden shadow-sm rounded-xl md:col-span-6 lg:col-span-4">
-                    <a href="#_" class="block transition duration-200 ease-out transform hover:scale-110">
-                        <img class="object-cover w-full shadow-sm max-h-56" src="{{asset('images/chips.jpeg')}}">
+                    <a href="#_" class="block transition duration-200 ease-out transform hover:scale-110">    
+                    <img class="object-cover w-full shadow-sm max-h-56" src="{{asset('storage/'.$Produk->image)}}">    
                     </a>
                     <div class="relative flex flex-col items-start px-6 bg-white border border-t-0 border-gray-200 py-7 rounded-b-2xl">
                         <div class="bg-indigo-400 absolute top-0 -mt-3 flex items-center px-3 py-1.5 leading-none w-auto inline-block rounded-full text-xs font-medium uppercase text-white inline-block">
@@ -189,7 +190,7 @@
                         <p class="mt-2 text-sm text-gray-500">Check out these inspiring workstations to get ideas on how to level-up your workstation.</p>
                     </div>
                 </div>
-
+            
                 <div class="flex flex-col items-start col-span-12 overflow-hidden shadow-sm rounded-xl md:col-span-6 lg:col-span-4">
                     <a href="#_" class="block transition duration-200 ease-out transform hover:scale-110">
                         <img class="object-cover w-full shadow-sm max-h-56" src="{{asset('images/frozenn.jpeg')}}">

@@ -18,6 +18,9 @@
     
     <!-- Custom styles for this template -->
     <link href="/css/dashboard.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/css/trix.css">
+    <script type="text/javascript" src="/js/trix.js"></script>
     
   </head>
   <body>
@@ -58,7 +61,7 @@
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Form Registrasi</h1>
+        <h1 class="h2">Form Edit Product</h1>
 </div>  
 </main>
 
@@ -70,44 +73,48 @@
 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-<div class="col-lg-8">
 
- <form action="/admin/registrasi" method="post">
+@foreach ($Produk as $Produk)
+<div class="col-lg-8">
+ <form action="/admin/product/showdata" method="post" enctype="multipart/form-data">
  @csrf
  <div class="mb-3">
-    <label for="name" class="form-label">Name</label>
-    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Name" required value="{{ old('name') }}">
-    @error('name')
+    <label for="category" class="form-label">Category</label>
+    <input type="text" name="category" class="form-control @error('category') is-invalid @enderror" id="category" placeholder="category" required value="{{ old('category', $Produk->category) }}">
+    @error('category')
       <div class="invalid-feedback">
       {{ $message  }}
       </div>
     @enderror
-  </div>
+</div>
+  
   <div class="mb-3">
-    <label for="email" class="form-label">Email address</label>
-    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="email" required value="{{ old('email') }}">
-    @error('email')
+  
+    <label for="title" class="form-label">Title</label>
+    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="title" required value="{{ old('title', $Produk->title) }}">
+    @error('title')
       <div class="invalid-feedback">
       {{ $message  }}
       </div>
     @enderror
+
   </div>
+
   <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="password">
-     @error('password')
-      <div class="invalid-feedback">
-      {{ $message  }}
-      </div>
-    @enderror
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<br>
-<form action="/admin/registrasi/showdata">
-  <button type="submit" class="btn btn-primary">Show Data</button>
+  <label for="image" class="form-label">Input Image</label>
+  <input class="form-control" type="file" id="image" name="image">
+    </div>
+
+    <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <input type="hidden" id="description" name="description" value="{{ old('title', $Produk->description) }}">
+    <trix-editor input="description"></trix-editor>
+    </div>
+
+  <button type="submit" class="btn btn-primary">Update Product</button>
 </form>
 </div>
+@endforeach
 </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
