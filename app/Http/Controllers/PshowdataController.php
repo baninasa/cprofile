@@ -15,31 +15,22 @@ class PshowdataController extends Controller
         ]);
     }
 
-    public function edit(Produk $Produk)
+    public function edit($id)
     {
-        return view('admin.product.showdata.edit', [
-            'Produk' => $Produk,
-            'produks' => Produk::all()
-        ]);
+       $Produk = Produk::findOrFail($id);
+       
+       return view('admin.product.showdata.edit', [
+           'Produk' => $Produk
+       ]);
     }
 
-    public function update(Request $request, Produk $Produk)
+    public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'category' => 'required|max:255',
-            'title' => 'required|max:255',
-            'image' => 'image|file|max:10024',
-            'description' => 'required|max:255',
-        ]);
+        $Produk = Produk::find($id)->update($request->all());
 
-        if($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->update('Upload-Gambar');
-        }
+        $Produk->save($request->all());
 
-        Produk::where('id', $Produk->id)
-        ->update($validatedData);
-
-        $request->session()->flash('success', 'Update Data successfull!!');
+        return back()->with('success, data berhasil di update');
  
         return redirect('/admin/product/showdata');
     }
@@ -49,5 +40,4 @@ class PshowdataController extends Controller
      DB::delete('delete from produks where id = ?', [$id]);   
      return redirect('admin/product/showdata')->with('Success','Data deleted!');
     }
-    
 }
