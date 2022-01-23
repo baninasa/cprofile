@@ -44,7 +44,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link {{ Request::is('admin/product') ? 'active' : '' }}" href="/admin/product">
+            <a class="nav-link {{ Request::is('admin/product/showdata') ? 'active' : '' }}" href="/admin/product/showdata">
               <span data-feather="file"></span>
               Product
             </a>
@@ -74,7 +74,6 @@
 </div>
 @endif
 
-@foreach ($Produk as $Produk)
 <div class="col-lg-8">
  <form action="/admin/product/showdata" method="post" enctype="multipart/form-data">
  @csrf
@@ -114,7 +113,6 @@
   <button type="submit" class="btn btn-primary">Update Product</button>
 </form>
 </div>
-@endforeach
 </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

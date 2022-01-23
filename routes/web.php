@@ -52,4 +52,4 @@ Route::post('/admin/product', [UserProductController::class, 'store']);
 Route::resource('/admin/product/showdata', PshowdataController::class);
 Route::get('/admin/product/showdata{id}', 'App\Http\Controllers\PshowdataController@destroy');
 Route::get('/admin/product/showdata{id}/edit', 'App\Http\Controllers\PshowdataController@edit');
-Route::post('/admin/product/showdata', [PshowdataController::class, 'update']);
+Route::post('/admin/product/showdata', [PshowdataController::class, 'update'])->name('update')->middleware('auth');
